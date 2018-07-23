@@ -22,6 +22,22 @@
       // Your code here.
       // ** LIMIT TO THE FIRST 10 POKEMON
       // We don't want to make too many unnecessary calls to the Pokemon API
+      let result = [];
+      let promise;
+      for (let i = 1; i < 11; i++) {
+        promise = axios
+          .get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+          .then((pokemon) => {
+            result.push(pokemon.data);
+            return result;
+          })
+          .then((result) => {
+            return result.filter((element) => {
+              return element.weight <= weight;
+            });
+          });
+      }
+      return promise;
     }
   }
 
